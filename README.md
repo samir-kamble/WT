@@ -1,2 +1,2 @@
-# WT
-Wealth Tracker
+# ReadMe 
+Read me
