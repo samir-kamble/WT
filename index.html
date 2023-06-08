@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Demo</title>
+    </head>
+    <body>
+        <!-- <h1>This is a Heading</h1>
+        <form>
+            <textarea id="prompt" rows="5" cols="100" placeholder="Write text here ..."></textarea><br>
+            <button type="button" onclick="callGPT()">Submit</button>
+        </form>
+        <p id="results">Response will be given here.</p> -->
+
+
+        <!-- <embed src="https://alphatrax-qa.crisil.com/WT_v3.0/qcrmd/" width="1000" height="500" style="border: 1px solid white; box-shadow: 0 0 5px black;" /> -->
+
+        <object data="https://alphatrax-qa.crisil.com/WT_v3.0/qcrmd/" width="100%" height="600" type="text/html">Alternative Content</object>
+
+        <script>
+            const promt = document.getElementById('prompt');
+            const results = document.getElementById('results');
+
+            async function callGPT() {
+                console.log('API called');
+
+                const url = 'https://openai80.p.rapidapi.com/chat/completions';
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        'X-RapidAPI-Key': '3b16c3c699mshba02f897f868dabp1f426ejsna42586d116f8',
+                        'X-RapidAPI-Host': 'openai80.p.rapidapi.com'
+                    },
+                    body: {
+                        "model": 'gpt-3.5-turbo',
+                        "messages":[
+                            {
+                                "role":"user",
+                                "content": "${prompt.value}"
+                            }
+                        ]
+                    }
+                };
+
+                try {
+                    console.log(options);
+                    const response = await fetch(url, options)
+                    .then((response) => response.json())
+                    .then((response) => {
+                        console.log(response);
+
+                        if (response.hasOwnProperty( 'choices' )) {
+                            results.innerText = response.choices[0].message.content;
+                        } else {
+                            results.innerText = response.info;
+                        }
+                    });
+                    // const result = await response.text();
+                } catch (error) {
+                    
+                }
+
+            }
+        </script>
+
+    </body>
+</html>
